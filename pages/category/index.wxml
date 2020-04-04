@@ -1,0 +1,65 @@
+<view class="container">
+    <!-- 搜索框 -->
+    <view class="weui-search-bar">
+        <view class="weui-search-bar__form">
+            <view class="weui-search-bar__box">
+                <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                <input type="text" class="weui-search-bar__input" placeholder="输入关键字搜索"
+                       value="{{inputVal}}" confirm-type="search" focus="{{inputShowed}}" bindinput="inputTyping"/>
+                <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                    <icon type="clear" size="14"></icon>
+                </view>
+            </view>
+            <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                <icon class="weui-icon-search" type="search" size="14"></icon>
+                <view class="weui-search-bar__text">搜索</view>
+            </label>
+        </view>
+        <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+    </view>
+    <view class="cate-content weui-flex">
+        <!-- 左侧 一级分类 -->
+        <scroll-view class="cate-left fontSize30" scroll-y="{{ true }}" style="height: {{ scrollHeight }}px; ">
+            <view bindtap="selectNav" wx:for="{{GSCategoryLists}}" wx:key="{{index}}" data-index="{{index}}" data-id="{{item.id}}"
+                class="type-nav text-black exceed-hidden {{curIndex==index?'selected':''}}">
+                {{item.name}}
+            </view>
+        </scroll-view>
+
+        <!-- 右侧 二级分类 -->
+        <scroll-view class="cate-right bg-white" scroll-y="true"
+                     style="height: {{ scrollHeight }}px; ">
+            <view wx:if="{{goodsLists.length > 0}}" class="bg-white">
+                <block wx:for="{{goodsLists}}" wx:key="{{index}}">
+                    <view class="flex bg-white border-bottom" data-goodsid="{{item.goods_id}}" catchtap="checkDetails">
+                        <view class="flex-sub flex align-center">
+                            <image src="{{item.image[0].img_file_path}}"
+                                   class="image-goods-list padding-top-sm padding-left-sm"></image>
+                        </view>
+                        <view class="flex-treble padding-lr margin-top-xs" style="width: 50%">
+                            <view class="exceed-hidden" style="width: 100%;" >
+                                <text class="color888 fontSize30">{{item.goods_name}}</text>
+                            </view>
+                            <view class="weui-flex" style="margin-top: 85rpx;">
+                                <view class="weui-flex__item">
+                                    <text class="price fontSize40">¥{{item.spec[0].goods_price}}</text>
+                                </view>
+                                <!--                            <view class="weui-flex__item text-right margin-right-xs">-->
+                                <!--                                <text class="bg-red1 padding-lr-sm padding-tb-xs radius90 fontSize25" catchtap="goToShop">查看商品</text>-->
+                                <!--                            </view>-->
+                            </view>
+                        </view>
+                    </view>
+                </block>
+            </view>
+            <view wx:else class="weui-flex align-items margin-top-xl" style="height: 100%; width: 100%;">
+                <view class="weui-flex__item">
+                    <image class="placeholder-img" src="../../assets/images/no_data.png" mode="aspectFit" aria-label="placeholder-img"></image>
+                    <view class="placeholder-text">亲，没有符合条件的商品</view>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+
+
+</view>

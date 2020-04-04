@@ -1,0 +1,7 @@
+<!--pages/shop/promotion.wxml-->
+<view class="page">
+<!-- class="page__hd" -->
+    <view >
+        <image src="{{poster}}" class="ant" style="height: {{posterHeight}}px"></image>
+    </view>
+</view>

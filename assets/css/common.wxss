@@ -1,0 +1,185 @@
+view, scroll-view, swiper, swiper-item, movable-area, movable-view, cover-view, cover-image, icon, text, rich-text, progress, button, checkbox-group, checkbox, form, input, label, picker, picker-view, radio-group, radio, slider, switch, textarea, navigator, functional-page-navigator, image, video, camera, live-player, live-pusher, map, canvas, open-data, web-view, ad {
+  box-sizing: border-box;
+}
+
+.container, input {
+  font-family: PingFang-Medium,
+  PingFangSC-Regular,
+  Heiti,
+  Heiti SC,
+  DroidSans,
+  DroidSansFallback,
+  "Microsoft YaHei",
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page{
+  height: 100%;
+}
+
+.page__hd {
+  padding: 25rpx 25rpx 0 25rpx;
+}
+.page__bd {
+  padding-bottom: 80rpx;
+}
+
+.center{
+  display: flex; align-items: center;justify-content: center;
+}
+
+.main-color-bg {
+  background-color: #1296db !important;
+}
+
+.fontWeight {
+  font-weight: bold;
+}
+
+.fontSize50 {
+  font-size: 50rpx;
+}
+
+.fontSize40 {
+  font-size: 40rpx;
+}
+
+.fontSize30 {
+  font-size: 30rpx;
+}
+
+.fontSize25 {
+  font-size: 25rpx;
+}
+
+.fontSize28 {
+  font-size: 28rpx;
+}
+
+.logo-image{
+  height: 260rpx;width: 260rpx;
+}
+
+.no-padding{
+  padding: 0;
+}
+
+.right_arrow_image{
+  width: 60rpx;height: 60rpx;mix-blend-mode: white;
+}
+
+.main_color{
+  color: #00AEEE;
+}
+
+.suspension_top{
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+}
+
+.suspension_bottom{
+  position: fixed;
+  z-index: 9999;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.suspension_add{
+  position: fixed;
+  bottom: 60rpx;
+  right: 60rpx;
+  z-index: 9999;
+}
+
+.suspension_add_img{
+  width: 130rpx;
+  height: 130rpx;
+}
+
+.nav-safe-margin-top{
+  margin-top: 110rpx
+}
+
+.image-goods-list{
+  height: 200rpx;
+  width: 200rpx;
+}
+
+.border-bottom{
+  border-bottom: 1px #f2f2f2 solid;
+  padding-bottom: 15rpx;
+}
+
+.border-top{
+  border-top: 1px #f2f2f2 solid;
+}
+
+.price{
+  color: red;
+}
+
+.text_through{
+  text-decoration: line-through;
+}
+
+.gender{
+  height: 50rpx;
+  width: 50rpx;
+}
+
+.iconSize{
+  font-size: 45rpx;
+}
+
+.canvas{
+  position: absolute;
+  top: -1000000px;
+  background-color: gray;
+}
+
+.exceed-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.avatar{
+  height: 150rpx;width: 150rpx;border-radius:180px;
+}
+
+.image1{
+  width: 100%;
+  height: 600rpx;
+  display:block;
+}
+
+.image2{
+  width: 50%;
+  height: 600rpx;
+  display:block;
+  float: left;
+}
+
+.video1{
+  width: 100%;
+  height: 500rpx;
+}
+
+.color888{
+  color: #888;
+}
+
+.placeholder-img {
+  display: block;
+  margin: 0 auto;
+  width: 80px;
+  height: 80px;
+}
+
+.placeholder-text {
+  color: #666;
+  text-align: center;
+}

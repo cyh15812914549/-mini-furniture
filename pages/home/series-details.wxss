@@ -1,0 +1,4 @@
+/* pages/home/series-details.wxss */
+page{
+    background-color: white;
+}
