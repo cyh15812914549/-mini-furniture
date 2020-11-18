@@ -2,17 +2,24 @@
 <view>
     <view data-src="{{topImgFilePath}}" bindlongtap="saveImg">
         <image src="{{topImgFilePath}}"
-               style="width: 100%;height: 450rpx;display:block;"></image>
+               style="width: 100%;display:block;"></image>
     </view>
     <view class="padding-left padding-tb-sm">
         <text class="fontWeight">{{topTxt}}</text>
     </view>
     <view class="bg-white">
         <view wx:for="{{seriesLists}}" wx:key="{{index}}" data-item="{{item}}" catchtap="checkDetails">
-            <view class="margin-left padding-tb-sm"><text>{{item.desc}}</text></view>
+            <view class="weui-flex">
+                <view class="margin-left padding-tb-sm weui-flex__item">
+                    <text>{{item.desc}}</text>
+                </view>
+                <view class="text-right padding-tb-sm weui-flex__item margin-right">
+                    <text class="cuIcon-right" style="color: red;font-size: 1.2em"></text>
+                </view>
+            </view>
             <view class="margin-lr border-bottom">
                 <image src="{{item.cover}}" mode="widthFix"  data-src="{{item.cover}}" bindlongtap="saveImg"
-                       style="width: 100%; height: 260px;"></image>
+                       style="width: 100%; "></image>
             </view>
         </view>
     </view>

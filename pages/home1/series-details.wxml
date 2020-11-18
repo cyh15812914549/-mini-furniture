@@ -10,9 +10,9 @@
 <!--            <view class="weui-flex__item text-right"><text>2020-03-05 15:14:02</text></view>-->
         </view>
         <view class="margin-top">
-            <block wx:for="{{detailsLists.imgs}}" wx:key="index">
+            <block wx:for="{{detailsLists[0].imgs}}" wx:key="index">
                 <image src="{{item}}" data-src="{{item}}" catchtap="previewImages"
-                       style="width: 100%;height: 450rpx;display: block;margin-top: 10rpx"></image>
+                       style="width: 100%;margin-top: 10rpx"  mode="widthFix"></image>
             </block>
         </view>
     </view>

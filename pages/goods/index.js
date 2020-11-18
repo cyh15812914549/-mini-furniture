@@ -19,6 +19,9 @@ Page({
     currentIndex: 1, // 轮播图指针
     floorstatus: false, // 返回顶部
     showView: true, // 显示商品规格
+    paramsList: [], //参数列表
+
+    showParam: false,//是否显示商品参数
 
     detail: {}, // 商品详情信息
     goods_price: 0, // 商品价格
@@ -34,7 +37,8 @@ Page({
     params: null,
     params1: null,
       contactWay: '',
-      alreadySold: ''
+      alreadySold: '',
+    ifCompany: 0
   },
 
   // 记录规格的数组
@@ -46,7 +50,24 @@ Page({
   onLoad(options) {
     let _this = this;
     // 商品id
-    _this.data.goods_id = options.goods_id;
+    if (options.goods_id){
+      _this.data.goods_id = options.goods_id;
+    } else {
+      _this.data.goods_id = App.globalData.goods_id;
+    }
+
+    if (options.ifCompany){
+      _this.setData({
+        ifCompany: 1
+      })
+    }
+
+    if (App.globalData.ifCompany === 1){
+      _this.setData({
+        ifCompany: 1
+      })
+    }
+
     // 获取商品信息
     _this.getGoodsDetail();
 
@@ -124,9 +145,12 @@ Page({
    */
   initGoodsDetailData(data) {
     let _this = this;
-    // for (let key in data.detail.params) {
-    //
-    // }
+    for (let [key, value] of Object.entries(data.detail.params)) {
+      _this.setData({
+        paramsList: _this.data.paramsList.concat([key, value].join(':     '))
+      })
+    }
+
     let oneRow = 0;
     for (let [key, value] of Object.entries(data.detail.params)) {
       oneRow++;
@@ -139,6 +163,7 @@ Page({
               alreadySold: [key, value].join(': ')
           })
       }
+
     }
 
     // 富文本转码
@@ -241,6 +266,12 @@ Page({
     });
   },
 
+  ifDisplayParam(){
+    this.setData({
+      showParam: !this.data.showParam
+    });
+  },
+
   /**
    * 返回顶部
    */
@@ -324,10 +355,19 @@ Page({
    */
   onShareAppMessage: function() {
     // 构建页面参数
-    let _this = this;
+    let _this = this,title = '';
+    if (_this.data.ifCompany === 1) {
+      console.log('等于1');
+      title = '商品详情'
+    }else {
+      console.log('等于0');
+      title = App.globalData.JXSShopName
+    }
     return {
-      title: _this.data.detail.goods_name,
-      path: "/pages/goods/index?goods_id=" + _this.data.goods_id
+      title: title,
+      path: "/pages/home/index?goods_id=" + _this.data.goods_id
+          + "&idt=" + App.globalData.JXSId + '&page=' + '/pages/goods/index'
+          + '&JXSShopName=' + App.globalData.JXSShopName + '&ifCompany=' + _this.data.ifCompany
     };
   },
 

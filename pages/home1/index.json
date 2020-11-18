@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-notice-bar": "../../assets/dist/notice-bar/index"
+  },
+  "navigationBarTitleText": "品牌家具，工厂直营",
+  "enablePullDownRefresh": true
+
+}

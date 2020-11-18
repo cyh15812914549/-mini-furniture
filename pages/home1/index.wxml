@@ -1,0 +1,145 @@
+<!--pages/home/index.wxml-->
+<import src="../../wxParse/wxParse.wxml"></import>
+<view class="page">
+
+
+<!--  <view class="loop-text" wx:if="{{notice != ''}}">-->
+
+<!--    <van-notice-bar-->
+<!--            left-icon="../../../assets/images/horn.png"-->
+<!--            text="{{notice}}"-->
+<!--            scrollable="true"-->
+<!--    />-->
+<!--  </view>-->
+
+  <view class="page__bd">
+    
+    <!-- slider -->
+    <view class="slider" style="height: 240px;" wx:if="{{ifDisplayJXSData}}">
+      <swiper style="height: 240px;" indicator-dots="true" indicator-color="rgba(255, 255, 255, .4)"
+              indicator-active-color="{{mainColor}}" circular="true" autoplay="true" interval="5000" duration="1000">
+        <block wx:for="{{bannerImages}}" wx:key="index">
+          <swiper-item style="height: 240px;">
+            <image src="{{item}}" catchtap="goToShop" style="width: 100%; height: 240px;"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+
+    <!-- 店名地址-->
+    <view class="weui-flex bg-white padding-sm" catchtap="goToShop" wx:if="{{ifDisplayJXSData}}">
+      <view class="flex-sub">
+        <text class="text-orange fontSize40">{{JXSName}}</text>
+      </view>
+      <view class="flex-twice text-right fontSize30 weui-flex justify-end align-center">
+        <text>{{JXSAddress}}</text>
+<!--        <text class="cuIcon-right lg"></text>-->
+      </view>
+    </view>
+  <view wx:if="{{notice != ''}}">
+
+    <van-notice-bar
+            left-icon="../../../assets/images/horn.png"
+            text="{{notice}}"
+    />
+  </view>
+
+    <view class="page__hd">
+      <view wx:if="{{ifDisplayJXSData}}">
+        <!--    经销商简介    -->
+        <view class="weui-flex bg-white padding-bottom" style="border-radius: 15rpx 15rpx 0 0;height: 180rpx">
+          <view class="weui-flex__item center margin-left-sm" style="height: 180rpx">
+            <image src="{{logoFilePath}}" class="avatar "></image>
+          </view>
+          <view style="height: 180rpx;flex: 4">
+            <view class="fontSize30 margin-top-xs margin-lr-xs" style="height: 100rpx;">{{summary}}
+            </view>
+            <view class="text-right margin-right-xs" style="height: 80rpx;">
+              <text class="bg-red1 padding-lr padding-tb-sm radius90 fontSize30" catchtap="goToShop">进入店铺</text>
+            </view>
+          </view>
+        </view>
+        <view style="border-radius: 0 0 15rpx 15rpx;" class="weui-flex bg-white border-top padding-xs" data-index="{{index}}">
+          <view class="weui-flex__item" wx:for="{{threeLink}}" wx:key="index" data-item="{{item}}" catchtap="goToShop">
+            <view class="center">
+              <image src="{{item.imageUrl}}" style="width: 55px; height: 55px;"></image>
+            </view>
+            <view class="center">
+              <text class="fontSize25">{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!--            分类-->
+      <view class="weui-loadmore1 weui-loadmore_line1">
+        <view class="weui-loadmore__tips1 weui-loadmore__tips_in-line1">
+          分类
+        </view>
+      </view>
+      <!-- main func menus -->
+      <view class=" bg-white padding-top">
+        <block wx:for="{{categoryCut}}" wx:key="index">
+          <view class="menu-item margin-bottom" data-index="{{item.id}}" catchtap="goToCategory">
+            <image class="menu-img" src="{{item.icon}}" style="width: 50px; height: 50px;"></image>
+            <text class="menu-text">{{item.name}}</text>
+          </view>
+        </block>
+      </view>
+
+
+
+      <!--    精品推荐    -->
+      <view class="weui-loadmore1 weui-loadmore_line1">
+        <view class="weui-loadmore__tips1 weui-loadmore__tips_in-line1">
+          <text class="cuIcon-appreciate lg margin-right-xs"></text>{{introZoneTitle}}
+        </view>
+      </view>
+      <view class="bg-white ">
+        <block wx:for="{{introZoneGoods}}" wx:key>
+          <view class="flex bg-white border-bottom" data-goodsid="{{item.goods_id}}" catchtap="checkDetails">
+            <view class="flex-sub flex align-center">
+              <image src="{{item.cover_file_path}}" class="image-goods-list padding-top-sm padding-left-sm"></image>
+            </view>
+            <view class="flex-treble padding-lr" style="width: 70%">
+              <view class="margin-top-sm exceed-hidden" style="width: 100%;">
+                <text>{{item.goods_name}}</text>
+              </view>
+              <view class="weui-flex" style="margin-top: 80rpx">
+                <view class="weui-flex__item">
+                  <text class="price fontSize40">¥{{item.spec_min_price}}</text>
+                </view>
+                <view class="weui-flex__item text-right">
+                  <text class="fontSize30">{{item.hits}}浏览</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class="weui-loadmore1 weui-loadmore_line1">
+      <view class="weui-loadmore__tips1 weui-loadmore__tips_in-line1">
+        {{profileTitle}}
+      </view>
+    </view>
+    <!-- 公司简介 -->
+    <view>
+      <view class="order">
+        <view wx:if="{{profileContent!=''}}">
+          <view class="b-f goods-detail-box">
+            <view class="goods-cont-li">
+              <template is="wxParse" data="{{wxParseData:content.nodes}}"></template>
+            </view>
+          </view>
+        </view>
+        <view wx:else>
+          <view class="yoshop-notcont">
+            <text class="iconfont icon-ziyuan"></text>
+            <text class="cont">亲,此处暂无详情数据</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -2,20 +2,78 @@
 <view class="page">
     <view class="page__bd">
         <!--        tabnav-->
-        <view>
-            <scroll-view scroll-x class="bg-white nav tab-nav" scroll-with-animation scroll-left="{{scrollLeft}}">
-                <view class="flex text-center">
-                    <view class="cu-item flex-sub fontSize30 {{index==TabCur?'text-orange cur':''}}" wx:for="{{typeLists}}"
-                          wx:key bindtap="tabSelect" data-id="{{index}}">
-                        {{item}}
-                    </view>
-                </view>
-            </scroll-view>
+<!--        bind:click=""-->
+<!--        <van-tabs active="{{ TabCur }}" ellipsis="{{false}}" sticky animated bind:click="tabSelect">-->
+<!--            <block wx:for="{{typeLists}}" wx:key>-->
+<!--                <van-tab title="{{item}}" data-id="{{index}}">-->
+<!--                    <view wx:if="{{goodsLists.length > 0}}" class="bg-white margin-top-xs">-->
+<!--                        <block wx:for="{{goodsLists}}" wx:key>-->
+<!--                            <view class="flex bg-white border-bottom" data-goodsid="{{item.goods_id}}" catchtap="checkDetails">-->
+<!--                                <view class="flex-sub flex align-center">-->
+<!--                                    <image src="{{item.image[0].img_file_path}}"-->
+<!--                                           class="image-goods-list padding-top-sm padding-left-sm"></image>-->
+<!--                                </view>-->
+<!--                                <view class="flex-treble padding-lr" >-->
+<!--                                    <view class="margin-top-sm"><text>{{item.goods_name}}</text></view>-->
+<!--                                    <view class="weui-flex" style="margin-top: 80rpx">-->
+<!--                                        <view class="weui-flex__item">-->
+<!--                                            <text class="price fontSize40">¥{{item.spec[0].goods_price}}</text>-->
+<!--                                        </view>-->
+<!--                                        <view class="weui-flex__item text-right">-->
+<!--                                            <text class="fontSize30">{{item.hits}}浏览</text>-->
+<!--                                        </view>-->
+<!--                                    </view>-->
+<!--                                </view>-->
+<!--                            </view>-->
+<!--                        </block>-->
+<!--                    </view>-->
+<!--                    <view wx:else class="weui-flex align-items" style="height: 100%; width: 100%;">-->
+<!--                        <view class="weui-flex__item">-->
+<!--                            <image class="placeholder-img" src="../../assets/images/no_data.png" mode="aspectFit" aria-label="placeholder-img"></image>-->
+<!--                            <view class="placeholder-text">暂无数据</view>-->
+<!--                        </view>-->
+<!--                    </view>-->
+<!--                </van-tab>-->
+<!--            </block>-->
+<!--        </van-tabs>-->
+
+<!--        <view>-->
+<!--            <scroll-view scroll-x class="bg-white nav tab-nav" scroll-with-animation scroll-left="{{scrollLeft}}">-->
+<!--                <view class="flex text-center">-->
+<!--                    <view class="cu-item flex-sub fontSize30 {{index==TabCur?'text-orange cur':''}}" wx:for="{{typeLists}}"-->
+<!--                          wx:key bindtap="tabSelect" data-id="{{index}}">-->
+<!--                        {{item}}-->
+<!--                    </view>-->
+<!--                </view>-->
+<!--            </scroll-view>-->
+<!--        </view>-->
+
+
+<!--        <view bindtap="ifDisplayGrid" class="tab-nav" style="width: 100%;">-->
+<!--            <view class="text-center bg-white border-bottom padding-top-xs" style="width: 100%;height: 100rpx">-->
+<!--                <text class="iconfont icon-xiangyoujiantou user-orderJtou-1 {{showGrid?'user-orderJtou-2':''}}"></text>-->
+<!--            </view>-->
+<!--            <view class="cart bright789_view_hide {{showGrid?'bright789_view_show':''}}">-->
+<!--                <scroll-view style="height: 240rpx" scroll-y="true">-->
+<!--                    <view class="bg-white padding-sm " style="display: flex;flex-wrap: wrap">-->
+<!--                        <block wx:for="{{typeLists}}" wx:key>-->
+<!--                            <text class="padding-sm {{index==TabCur?'bg-pink':'bg-gray'}} margin-xs fontSize30 radius"-->
+<!--                                  catchtap="tabSelect" data-id="{{index}}">{{item}}</text>-->
+<!--                        </block>-->
+<!--                    </view>-->
+<!--                </scroll-view>-->
+<!--            </view>-->
+<!--        </view>-->
+
+        <view class="bg-white padding-sm " style="display: flex;flex-wrap: wrap">
+            <block wx:for="{{typeLists}}" wx:key>
+                <text class="padding-sm {{index==TabCur?'bg-yellow':'bg-gray'}} margin-xs fontSize30 radius"
+                      catchtap="tabSelect" data-id="{{index}}">{{item}}</text>
+            </block>
         </view>
 
-        <view class=" {{isDisplayNav ? 'nav-safe-margin-top' : ''}}" wx:if="{{!ifDisplayPoster}}">
-            <view wx:if="{{goodsLists.length > 0}}" class="bg-white">
-              <block wx:for="{{goodsLists}}" wx:key>
+        <view wx:if="{{goodsLists.length > 0}}" class="bg-white margin-top-xs">
+            <block wx:for="{{goodsLists}}" wx:key>
                 <view class="flex bg-white border-bottom" data-goodsid="{{item.goods_id}}" catchtap="checkDetails">
                     <view class="flex-sub flex align-center">
                         <image src="{{item.image[0].img_file_path}}"
@@ -33,16 +91,48 @@
                         </view>
                     </view>
                 </view>
-              </block>
-            </view>
-            <view wx:else class="weui-flex align-items" style="height: 100%; width: 100%;">
-              <view class="weui-flex__item">
+            </block>
+        </view>
+        <view wx:else class="weui-flex align-items" style="height: 100%; width: 100%;">
+            <view class="weui-flex__item">
                 <image class="placeholder-img" src="../../assets/images/no_data.png" mode="aspectFit" aria-label="placeholder-img"></image>
-                <view class="placeholder-text">暂无数据</view>
-              </view>
+                <view class="placeholder-text">亲，没有符合条件的商品</view>
             </view>
         </view>
 
-        <view wx:if="{{ifDisplayPoster}}" style="font-size: 100rpx;">这里显示一张海报之类的东西</view>
+        <view class="weui-loadmore weui-loadmore_line" hidden="{{hiddenList}}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无更多数据</view>
+        </view>
+
+<!--        <view class=" {{isDisplayNav ? 'nav-safe-margin-top' : ''}}">-->
+<!--            <view wx:if="{{goodsLists.length > 0}}" class="bg-white">-->
+<!--              <block wx:for="{{goodsLists}}" wx:key>-->
+<!--                <view class="flex bg-white border-bottom" data-goodsid="{{item.goods_id}}" catchtap="checkDetails">-->
+<!--                    <view class="flex-sub flex align-center">-->
+<!--                        <image src="{{item.image[0].img_file_path}}"-->
+<!--                               class="image-goods-list padding-top-sm padding-left-sm"></image>-->
+<!--                    </view>-->
+<!--                    <view class="flex-treble padding-lr" >-->
+<!--                        <view class="margin-top-sm"><text>{{item.goods_name}}</text></view>-->
+<!--                        <view class="weui-flex" style="margin-top: 80rpx">-->
+<!--                            <view class="weui-flex__item">-->
+<!--                                <text class="price fontSize40">¥{{item.spec[0].goods_price}}</text>-->
+<!--                            </view>-->
+<!--                            <view class="weui-flex__item text-right">-->
+<!--                                <text class="fontSize30">{{item.hits}}浏览</text>-->
+<!--                            </view>-->
+<!--                        </view>-->
+<!--                    </view>-->
+<!--                </view>-->
+<!--              </block>-->
+<!--            </view>-->
+<!--            <view wx:else class="weui-flex align-items" style="height: 100%; width: 100%;">-->
+<!--              <view class="weui-flex__item">-->
+<!--                <image class="placeholder-img" src="../../assets/images/no_data.png" mode="aspectFit" aria-label="placeholder-img"></image>-->
+<!--                <view class="placeholder-text">暂无数据</view>-->
+<!--              </view>-->
+<!--            </view>-->
+<!--        </view>-->
+
     </view>
 </view>

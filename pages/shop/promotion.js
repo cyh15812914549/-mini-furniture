@@ -1,4 +1,5 @@
 // pages/shop/promotion.js
+
 const app = getApp()
 Page({
 
@@ -41,6 +42,7 @@ Page({
 
   },
 
+
   /**
    * 生命周期函数--监听页面显示
    */
@@ -80,6 +82,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: app.globalData.JXSShopName,
+      path: "/pages/home/index?idt=" + app.globalData.JXSId + '&page=' + '/pages/shop/promotion' + '&JXSShopName=' + app.globalData.JXSShopName
+    }
   }
 })

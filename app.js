@@ -10,11 +10,16 @@ App({
    */
   globalData: {
     user_id: null,
-    ifDisplayJXSData: true,//是否显示经销商数据
-    JXSShopName: '经销商名字',//经销商名字
+    ifDisplayJXSData: false,//是否显示经销商数据
+    JXSShopName: '',//经销商名字
+    JXSId: '',//经销商唯一id
     JXSTopNav: {},//经销商顶部导航栏
     mainColor: '#00AEEE',
     poster: '',//促销海报图
+    goods_id: null, //商品id
+    token: '',
+    desc: '',//分享经销商图册时标记
+    ifCompany: 0,//是否是公司的商品
   },
 
   api_root: '', // api地址
@@ -27,14 +32,43 @@ App({
     // 设置api地址
     App.setApiRoot();
 
-    this.getUserInfo()
+    // this.getUserInfo()
+    if (wx.canIUse('getUpdateManager')) {
+      const updateManager = wx.getUpdateManager()
+      updateManager.onCheckForUpdate(function (res) {
+        // 请求完新版本信息的回调
+        if (res.hasUpdate) {
+          updateManager.onUpdateReady(function () {
+            wx.showModal({
+              title: '更新提示',
+              content: '请更新小程序以使用最新功能',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                  updateManager.applyUpdate()
+                }
+              }
+            })
+          })
+          updateManager.onUpdateFailed(function () {
+            // 新的版本下载失败
+            wx.showModal({
+              title: '更新提示',
+              content: '新版本更新失败, 请检查网络设置',
+              showCancel: false
+            })
+          })
+        }
+      })
+    }
   },
 
   /**
    * 当小程序启动，或从后台进入前台显示，会触发 onShow
    */
   onShow(options) {
-    this.getUserInfo()
+    // this.getUserInfo()
   },
 
   /**
@@ -69,9 +103,9 @@ App({
       wx.setStorageSync("currentPage", currentPage);
     }
     // 跳转授权页面
-    wx.navigateTo({
-      url: "/pages/login/login"
-    });
+    // wx.navigateTo({
+    //   url: "/pages/login/login"
+    // });
   },
 
   /**
@@ -120,6 +154,7 @@ App({
     let App = this;
     wx.showNavigationBarLoading();
 
+
     // 构造请求参数
     data = Object.assign({
       wxapp_id: 10001,
@@ -131,7 +166,7 @@ App({
 
     // 构造get请求
     let request = () => {
-      data.token = wx.getStorageSync('token');
+      // data.token = wx.getStorageSync('token');
       wx.request({
         url: App.api_root + url,
         header: {
@@ -147,7 +182,7 @@ App({
           if (res.data.code === -1) {
             // 登录态失效, 重新登录
             wx.hideNavigationBarLoading();
-            App.doLogin();
+            // App.doLogin();
           } else if (res.data.code === 0) {
             App.showError(res.data.msg);
             return false;
@@ -162,6 +197,7 @@ App({
           });
         },
         complete(res) {
+          wx.hideLoading();
           wx.hideNavigationBarLoading();
           wx.stopPullDownRefresh()
           complete && complete(res);

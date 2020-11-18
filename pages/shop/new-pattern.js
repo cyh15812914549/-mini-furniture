@@ -82,6 +82,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: app.globalData.JXSShopName,
+      path: "/pages/home/index?idt=" + app.globalData.JXSId + '&page=' + '/pages/shop/new-pattern' + '&JXSShopName=' + app.globalData.JXSShopName
+    }
   }
 })

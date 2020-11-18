@@ -1,13 +1,13 @@
 {
   "pages": [
-    "pages/goods-details/index",
     "pages/home/index",
+    "pages/home1/index",
     "pages/shop/index",
     "pages/category/index",
     "pages/my/index",
 
-    "pages/home/series-details",
-    "pages/home/suiteSeries",
+    "pages/home1/series-details",
+    "pages/home1/suiteSeries",
     "pages/shop/promotion",
     "pages/shop/main-push",
     "pages/shop/new-pattern",
@@ -26,7 +26,7 @@
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/home/index",
+        "pagePath": "pages/home1/index",
         "text": "首页",
         "iconPath": "assets/images/tabBar/home.png",
         "selectedIconPath": "assets/images/tabBar/home_on.png"

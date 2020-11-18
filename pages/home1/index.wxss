@@ -1,0 +1,77 @@
+/* pages/home/index.wxss */
+@import "../goods/index.wxss";
+
+.menu-item {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+}
+
+.menu-item .menu-img {
+    display: block;
+    margin: 0 auto;
+}
+
+.menu-item .menu-text {
+    font-size: 25rpx;
+    color: #666;
+}
+
+/* 猜您喜欢 */
+
+.title-hrbg {
+    height: 80rpx;
+    line-height: 80rpx;
+}
+
+.hr1 {
+    background: red;
+    height: 1rpx;
+    border: 0;
+}
+
+.weui-loadmore1 {
+    width: 65%;
+    margin: 0 auto;
+    line-height: 1.6em;
+    font-size: 14px;
+    text-align: center
+}
+
+.weui-loadmore__tips1 {
+    display: inline-block;
+    vertical-align: middle
+}
+
+.weui-loadmore_line1 {
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    margin-top: 2.4em
+}
+
+.weui-loadmore__tips_in-line1 {
+    position: relative;
+    top: -.9em;
+    padding: 0 .55em;
+    background-color: #fff;
+    color: rgba(0, 0, 0, .5)
+}
+
+/* 走马灯 */
+
+.loop-text {
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    /*color: white;*/
+    /*padding: 4%;*/
+    /*background-color: lightcoral;*/
+    /*opacity: 0.4;*/
+}
+
+.marquee_text {
+    white-space: nowrap;
+    position: absolute;
+    top: 6rpx;
+}
+

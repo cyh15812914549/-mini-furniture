@@ -14,7 +14,10 @@ Page({
     optionsIndex: -1,
     GSCategoryLists: [],
     categoryId: 0,//当前分类的id
-    goodsLists: []
+    goodsLists: [],
+    totalPage: 0, //总页数
+    pageNo: 1,//当前页数
+    hiddenList: true
   },
 
   /**
@@ -30,14 +33,22 @@ Page({
   },
 
   init(){
-
     let categoryIndex = wx.getStorageSync('categoryIndex')
     let _this = this,
         GSCategory = [];
-    _this.setData({
-      curIndex: 0
-    });
-    _this.data.GSCategoryLists = []
+    if (wx.getStorageSync('curIndex')) {
+      _this.setData({
+        curIndex: wx.getStorageSync('curIndex'),
+        pageNo: 1
+      });
+    }else {
+      _this.setData({
+        curIndex: 0,
+        pageNo: 1
+      });
+    }
+
+    _this.data.GSCategoryLists = [{id: 0, name: "全部"}]
     _this.data.goodsLists = []
     app._get('index/page', {}, function (result) {
       console.log(result)
@@ -57,11 +68,16 @@ Page({
       }
       wx.nextTick(() => {
         if (_this.data.GSCategoryLists.length > 0) {
-          _this.getGoodsList(1, _this.data.GSCategoryLists[0].id, 1, '')
+          if (wx.getStorageSync('curIndex')){
+            _this.getGoodsList(1, _this.data.GSCategoryLists[wx.getStorageSync('curIndex')].id, 1, '')
+          } else {
+            _this.getGoodsList(1, _this.data.GSCategoryLists[0].id, 1, '')
+          }
         }
       })
     });
-    wx.removeStorageSync('categoryIndex')
+
+
   },
 
   /**
@@ -79,12 +95,14 @@ Page({
   },
 
   selectNav(e){
+    this.data.goodsLists = []
     let index = e.currentTarget.dataset.index,
         id = e.currentTarget.dataset.id
     this.setData({
       curIndex: index,
       categoryId: id
     })
+    wx.setStorageSync('curIndex', index);
     this.getGoodsList(1,id,1,'')
   },
 
@@ -101,9 +119,12 @@ Page({
       sortType: '',
       sortPrice: false
     }, function (result) {
-      console.log(result)
+      let total = result.data.list.total;
+      let totalPage = (parseInt(total) % 15) === 0 ? parseInt(total) / 15 : Math.floor(parseInt(total) / 15) + 1;
+      console.log(result.data.list.data)
       _this.setData({
-        goodsLists: result.data.list.data
+        goodsLists: _this.data.goodsLists.concat(result.data.list.data),
+        totalPage: totalPage
       })
     });
   },
@@ -115,6 +136,7 @@ Page({
   },
 
   hideInput: function () {
+    this.data.goodsLists = []
     this.getGoodsList(1,this.data.categoryId,1,'')
     this.setData({
       inputShowed: false
@@ -122,16 +144,21 @@ Page({
   },
 
   clearInput: function () {
+    this.data.goodsLists = []
     this.getGoodsList(1,this.data.categoryId,1,'')
   },
 
   inputTyping: function (e) {
+    this.setData({
+      inputVal: e.detail.value
+    })
+    this.data.goodsLists = []
     this.getGoodsList(1,this.data.categoryId,1,e.detail.value)
   },
 
   checkDetails(e){
     wx.navigateTo({
-      url: '/pages/goods/index?goods_id=' + e.currentTarget.dataset.goodsid
+      url: '/pages/goods/index?goods_id=' + e.currentTarget.dataset.goodsid + '&ifCompany=1'
     })
   },
 
@@ -178,13 +205,30 @@ Page({
 
   },
 
+  // scroll-view上拉加载
+  loadMore () {
+    let pageNo = this.data.pageNo + 1;
+    if (pageNo > this.data.totalPage) {
+      console.log(1)
+      this.setData({
+        hiddenList: false
+      })
+    } else {
+      console.log(2)
+      this.setData({
+        pageNo: pageNo
+      });
+      this.getGoodsList(pageNo, this.data.categoryId, 1, this.data.inputVal)
+    }
+  },
+
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
     return {
       title: '轻奢系列',
-      path: "/pages/category/index"
+      path: "/pages/home/index?idt=" + app.globalData.JXSId + '&page=' + '/pages/category/index'
     }
   }
 })

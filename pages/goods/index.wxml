@@ -19,7 +19,7 @@
         <text class="title f-32 twolist-hidden">{{detail.goods_name}}</text>
       </view>
       <view class="goods-title1 ">
-        <text class="title f-32 twolist-hidden">{{contactWay}}</text>
+        <text class="title f-32 twolist-hidden" selectable="true">{{contactWay}}</text>
       </view>
       <view class="money-box weui-flex">
         <view class="weui-flex__item">
@@ -75,6 +75,25 @@
     </view>
 
 
+    <view bindtap="ifDisplayParam" class="cont-box b-f goods-property-box m-top20">
+      <text class="col-3 f-30">商品参数</text>
+      <view class="goods-property-jianTou">
+        <text class="iconfont icon-xiangyoujiantou user-orderJtou-1 {{showParam?'user-orderJtou-2':''}}"></text>
+      </view>
+    </view>
+    <view class="cart bright789_view_hide {{showParam?'bright789_view_show':''}}">
+      <view class="modal_cont_box">
+        <scroll-view class="goods-list-box" scroll-y="true">
+          <block wx:for="{{paramsList}}" wx:key>
+            <view class="weui-flex">
+              <view class="weui-flex__item" style="color: #888;font-size: 35rpx;">
+                {{item}}
+              </view>
+            </view>
+          </block>
+        </scroll-view>
+      </view>
+    </view>
 
 
     <!--        视频介绍-->

@@ -1,7 +1,7 @@
 <!--pages/shop/main-push.wxml-->
 <view class="page">
     <view class="page__bd">
-        <view wx:if="{{goodsLists.length > 0}}" class="bg-white margin-top-sm">
+        <view wx:if="{{goodsLists}}" class="bg-white margin-top-sm">
             <block wx:for="{{goodsLists}}" wx:key>
                 <view class="flex bg-white border-bottom" data-goodsid="{{item.goods_id}}" catchtap="checkDetails">
                     <view class="flex-sub flex align-center">

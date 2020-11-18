@@ -1,7 +1,7 @@
 /* pages/category/index.wxss */
 /* 搜索框 */
 
-@import '../home/index.wxss';
+@import '../home1/index.wxss';
 
 .index-search-box {
     background: #fff;

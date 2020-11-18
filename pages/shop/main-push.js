@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    goodsLists: []
+    goodsLists: null
   },
 
   /**
@@ -81,6 +81,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: app.globalData.JXSShopName,
+      path: "/pages/home/index?idt=" + app.globalData.JXSId + '&page=' + '/pages/shop/main-push' + '&JXSShopName=' + app.globalData.JXSShopName
+    }
   }
 })

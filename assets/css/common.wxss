@@ -45,6 +45,10 @@ view, scroll-view, swiper, swiper-item, movable-area, movable-view, cover-view, 
   font-size: 40rpx;
 }
 
+.fontSize35 {
+  font-size: 35rpx;
+}
+
 .fontSize30 {
   font-size: 30rpx;
 }

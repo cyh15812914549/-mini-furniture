@@ -45,9 +45,9 @@ Page({
   },
 
   checkDetails(e){
-    let item = JSON.stringify(e.currentTarget.dataset.item)
+    let desc = e.currentTarget.dataset.item.desc
     wx.navigateTo({
-      url: '/pages/home/series-details?item=' + item
+      url: '/pages/home1/series-details?desc=' + desc
     })
   },
 
@@ -82,7 +82,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.init()
   },
 
   /**
@@ -96,6 +96,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: app.globalData.JXSShopName,
+      path: "/pages/home/index?idt=" + app.globalData.JXSId + '&page=' + '/pages/home1/suiteSeries' + '&JXSShopName=' + app.globalData.JXSShopName
+    }
   }
 })

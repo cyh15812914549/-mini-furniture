@@ -1,5 +1,8 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "van-tab": "../../assets/dist/tab/index",
+    "van-tabs": "../../assets/dist/tabs/index"
+  },
   "navigationBarTitleText": "经销商店铺名",
   "enablePullDownRefresh": true
 }

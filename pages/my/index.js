@@ -17,8 +17,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-
     // 设置navbar标题、颜色
     app.setNavigationBar();
 
@@ -26,6 +24,7 @@ Page({
   },
 
   init(){
+
     let that = this
     app._get('company/gallery', {}, function(result) {
       console.log(result)
@@ -64,7 +63,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    wx.removeStorageSync('curIndex')
+    wx.removeStorageSync('categoryIndex')
   },
 
   /**
@@ -101,7 +101,7 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '轻奢图册',
-      path: "/pages/my/index"
+      path: "/pages/home/index?idt=" + app.globalData.JXSId + '&page=' + '/pages/my/index'
     }
   }
 })
