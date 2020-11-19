@@ -91,9 +91,21 @@ Page({
   },
 
   downloadVideo(){
+    // wx.getSetting({
+    //   success(result) {
+    //     if (!result.authSetting['scope.writePhotosAlbum']) {
+    //       wx.authorize({
+    //         scope: 'scope.writePhotosAlbum',
+    //         success () {
+              
+    //         }
+    //       })
+    //     }
+    //   }
+    // })
     let url;
     url = this.data.detail.introv.file_path.replace(/http/,'https')
-    wx.downloadFile({
+    const downloadTask = wx.downloadFile({
       url: url,
       success (res) {
         wx.saveVideoToPhotosAlbum({
@@ -121,6 +133,13 @@ Page({
       fail(err) {
         console.log(err)
       }
+    })
+
+    downloadTask.onProgressUpdate((res) => {
+      wx.showLoading({
+        title: '下载中' + res.progress + '%',
+      })
+      res.progress == 100 && wx.hideLoading()
     })
   },
 
